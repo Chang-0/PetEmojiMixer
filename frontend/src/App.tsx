@@ -146,7 +146,7 @@ function App() {
       emojiItemsJson: JSON.stringify(emojis)
     };
     try {
-      const response = await fetch('http://localhost:8080/api/compositions', {
+      const response = await fetch('/api/compositions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(composition),

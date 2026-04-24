@@ -191,6 +191,23 @@ function App() {
       <main className="main-content">
         <aside className="sidebar left">
           <section className="section">
+            <h3>Custom Pet</h3>
+            <button 
+              className="upload-main-btn"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              📸 Upload Your Pet
+            </button>
+            <input 
+              type="file" 
+              ref={fileInputRef} 
+              style={{ display: 'none' }} 
+              accept="image/*"
+              onChange={handleFileUpload}
+            />
+          </section>
+
+          <section className="section">
             <h3>Choose Pet</h3>
             <div className="grid">
               {PET_BASES.map(pet => (

@@ -172,3 +172,20 @@ button {
 .export-btn:hover {
   background: #4f46e5;
 }
+
+.upload-main-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 15px;
+  transition: background 0.2s;
+}
+
+.upload-main-btn:hover {
+  background-color: #4338ca;
+}

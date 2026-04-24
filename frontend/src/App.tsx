@@ -101,11 +101,27 @@ const emojiToHex = (emoji: string) => {
 
 function App() {
   const [selectedPet, setSelectedPet] = useState(PET_BASES[0]);
+  const [customPetImage, setCustomPetImage] = useState<string | null>(null);
   const [emojis, setEmojis] = useState<EmojiItem[]>([]);
   const [selectedId, selectShape] = useState<string | null>(null);
   const stageRef = useRef<any>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [petImage] = useImage(`https://openmoji.org/data/color/svg/${emojiToHex(selectedPet.emoji)}.svg`);
+  const [remotePetImage] = useImage(`https://openmoji.org/data/color/svg/${emojiToHex(selectedPet.emoji)}.svg`, 'anonymous');
+  const [localPetImage] = useImage(customPetImage || '', 'anonymous');
+
+  const petImage = customPetImage ? localPetImage : remotePetImage;
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setCustomPetImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const addEmoji = (emoji: string) => {
     const id = Math.random().toString(36).substr(2, 9);
@@ -123,7 +139,9 @@ function App() {
   };
 
   const handleExport = () => {
-    const uri = stageRef.current.toDataURL();
+    if (!stageRef.current) return;
+    // 使用 image/png 并设置最高质量
+    const uri = stageRef.current.toDataURL({ pixelRatio: 2 });
     const link = document.createElement('a');
     link.download = 'pet-emoji-mixer.png';
     link.href = uri;

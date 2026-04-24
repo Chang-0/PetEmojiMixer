@@ -34,7 +34,7 @@ const URLImage = ({ item, isSelected, onSelect, onChange }: {
   // We use text as image for now because downloading icons is hard in this environment.
   // Actually, Konva can render text. But the prompt said "Pet-Emoji Mixer".
   // Let's use a trick: render the emoji to a hidden canvas and use it as an image source.
-  const [image] = useImage(`https://openmoji.org/data/color/svg/${item.url}.svg`);
+  const [image] = useImage(`https://openmoji.org/data/color/svg/${item.url}.svg`, 'anonymous');
   
   const shapeRef = useRef<any>(null);
   const trRef = useRef<any>(null);
